@@ -1,0 +1,18 @@
+[Version]
+Version=3000
+[Project]
+Assembler=Masm64
+Path=C:\RadASM\Masm\Projects\TestSDL
+Group=2,-1,0,1,01_Hello_SDL,-2,-1,1,Assembly,-3,-1,1,Include,-4,-1,1,Misc,-5,-1,1,Resource
+F1=-2,2,1,22,22,600,400,6,01_Hello_SDL.asm
+Open=0,1
+Api=
+C1=0
+B1=
+M1=
+[Make]
+Make=0
+0=Window Release,'/v "$R"',"$R.res",'/nologo /c /Cp "$C"',"$C.obj",'/NOLOGO /SUBSYSTEM:WINDOWS /ENTRY:main /RELEASE /VERSION:4.0 /OUT:$O $C $M $R kernel32.lib user32.lib ucrt.lib SDL2.lib SDL2main.lib',"$C.exe",'',
+Delete=0
+IncBuild=0
+Run=0,'',''
