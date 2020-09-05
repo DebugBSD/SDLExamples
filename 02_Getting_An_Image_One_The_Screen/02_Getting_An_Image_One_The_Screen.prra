@@ -3,8 +3,21 @@ Version=3000
 [Project]
 Assembler=Masm64
 Path=C:\Users\debugg\My Projects\Assembly\SDL\02_Getting_An_Image_One_The_Screen
-Group=2,-1,0,1,02_Getting_An_Image_One_The_Screen,-2,-1,1,Assembly,-3,-1,1,Include,-4,-1,1,Misc,-5,-1,1,Resource
-F1=-2,2,1,22,22,600,400,0,02_Getting_An_Image_One_The_Screen.asm
+Group=2,-1,0,1,02_Getting_An_Image_One_The_Screen,-2,-1,1,Assembly,-3,-1,1,Include,-4,-1,1,Misc,-5,-1,1,Resource,-6,-2,1,SDL
+F1=-2,2,1,-10,-33,1604,835,90,02_Getting_An_Image_One_The_Screen.asm
+C1=0
+B1=
+M1=
+F2=-6,0,1,-10,-33,1604,835,47,SDL.inc
+C2=0
+B2=
+M2=
+Open=
+Api=
 [Make]
 Make=0
-0=Window Release,'/v "$R"',"$R.res",'/c /coff /Cp "$C"',"$C.obj",'/SUBSYSTEM:WINDOWS /RELEASE /VERSION:4.0 /OUT:$O $C $M $R',"$C.exe",'',
+0=Window Release,'/v "$R"',"$R.res",'/nologo /c /Cp "$C"',"$C.obj",'/NOLOGO /SUBSYSTEM:WINDOWS /ENTRY:main /RELEASE /VERSION:4.0 /OUT:$O $C $M $R kernel32.lib user32.lib ucrt.lib SDL2.lib SDL2main.lib',"$C.exe",'',
+1=Window Debug,'/v "$R"',"$R.res",'/nologo /Zi /Zd /c /Cp /Zi /Zd "$C"',"$C.obj",'/NOLOGO /SUBSYSTEM:WINDOWS /ENTRY:main /DEBUG /VERSION:4.0 /OUT:$O $C $M $R kernel32.lib user32.lib ucrt.lib SDL2.lib SDL2main.lib',"$C.exe",'',
+Delete=0
+IncBuild=0
+Run=0,'',''
