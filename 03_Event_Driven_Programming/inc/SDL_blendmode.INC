@@ -1,0 +1,39 @@
+;--- include file created by h2incx v0.99.20 (copyright 2005-2009 japheth)
+;--- source file: C:\Users\debugg\My Projects\Librerias\SDL2-devel-2.0.12-VC\include\SDL_blendmode.h, last modified: 3/11/2020 3:39
+;--- cmdline used for creation:  SDL_blendmode.h
+
+ifndef SDL_blendmode_h_
+SDL_blendmode_h_	EQU	<>
+
+SDL_BlendMode typedef DWORD
+SDL_BLENDMODE_NONE = 00000000h 
+SDL_BLENDMODE_BLEND = 00000001h 
+SDL_BLENDMODE_ADD = 00000002h 
+SDL_BLENDMODE_MOD = 00000004h 
+SDL_BLENDMODE_MUL = 00000008h 
+SDL_BLENDMODE_INVALID = 7FFFFFFFh 
+
+SDL_BlendOperation typedef DWORD
+SDL_BLENDOPERATION_ADD = 1h 
+SDL_BLENDOPERATION_SUBTRACT = 2h 
+SDL_BLENDOPERATION_REV_SUBTRACT = 3h 
+SDL_BLENDOPERATION_MINIMUM = 4h 
+SDL_BLENDOPERATION_MAXIMUM = 5h 
+
+SDL_BlendFactor typedef DWORD
+SDL_BLENDFACTOR_ZERO = 1h 
+SDL_BLENDFACTOR_ONE = 2h 
+SDL_BLENDFACTOR_SRC_COLOR = 3h 
+SDL_BLENDFACTOR_ONE_MINUS_SRC_COLOR = 4h 
+SDL_BLENDFACTOR_SRC_ALPHA = 5h 
+SDL_BLENDFACTOR_ONE_MINUS_SRC_ALPHA = 6h 
+SDL_BLENDFACTOR_DST_COLOR = 7h 
+SDL_BLENDFACTOR_ONE_MINUS_DST_COLOR = 8h 
+SDL_BLENDFACTOR_DST_ALPHA = 9h 
+SDL_BLENDFACTOR_ONE_MINUS_DST_ALPHA = 0Ah 
+
+externdef SDL_ComposeCustomBlendMode:proto
+endif 
+
+;--- errors: 0
+;--- end of file ---
