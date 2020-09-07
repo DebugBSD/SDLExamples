@@ -36,7 +36,7 @@ gStretchedSurface 	QWORD ?
 .CODE
 
 main PROC
-	sub rsp, 56 ; Reserve memory for shadow space 
+	sub rsp, 40 ; Reserve memory for shadow space 
 	
 	; Init SDL and other stuff
 	call Init
@@ -94,11 +94,17 @@ SDLERROR:
 	
 EXIT:	
 	mov rax, 0
+	add rsp, 40
 	call ExitProcess
 main endp
 
-Init PROC	
-	sub rsp, 56
+arg4 EQU<DWORD PTR[rsp+32]>
+arg5 EQU<DWORD PTR[rsp+40]>
+Init PROC
+	sub rsp, 8
+	sub rsp, 32
+	sub rsp, 8 ; reserve space for argument 4
+	sub rsp, 8 ; reserve space for argument 5 
 	
 	mov rcx, SDL_INIT_VIDEO
 	call SDL_Init
@@ -106,8 +112,8 @@ Init PROC
 	jb EXIT
 	
 	; We create the Window
-	mov	DWORD PTR [rsp+40], SDL_WINDOW_SHOWN	; 6xt argument - (4)
-	mov	DWORD PTR [rsp+32], SCREEN_HEIGHT		; 5th argument - (480) 000001e0H
+	mov	arg5, SDL_WINDOW_SHOWN					; 6xt argument - (4)
+	mov	arg4, SCREEN_HEIGHT						; 5th argument - (480) 000001e0H
 	mov	r9, SCREEN_WIDTH						; 4th argument - (640) 00000280H
 	mov	r8, SDL_WINDOWPOS_UNDEFINED				; 3rd argument - 1fff0000H
 	mov	rdx, r8									; 2nd argument - 1fff0000H
@@ -127,12 +133,12 @@ ERROR:
 	mov rax, 0
 
 EXIT:
-	add rsp, 56
+	add rsp, 56 ; We clean all stack
 	ret
 Init endp
 
 Close PROC
-	sub rsp, 56
+	sub rsp, 40
 	
 	mov rcx, gStretchedSurface
 	call SDL_FreeSurface	
@@ -142,12 +148,12 @@ Close PROC
 	
 	call SDL_Quit
 	
-	add rsp, 56
+	add rsp, 40
 	ret
 Close endp
 
 LoadMedia PROC
-	sub rsp, 56
+	sub rsp, 40
 	
 	mov rcx, OFFSET IMAGE_PRESS
 	call LoadSurface
@@ -155,12 +161,12 @@ LoadMedia PROC
 	je ERROR
 	mov gStretchedSurface, rax
 ERROR:
-	add rsp, 56
+	add rsp, 40
 	ret
 LoadMedia endp
 
 LoadSurface PROC
-	sub rsp, 56
+	sub rsp, 40
 	mov rdx, OFFSET FILE_ATTRS
 	call SDL_RWFromFile
 	
@@ -182,7 +188,7 @@ LoadSurface PROC
 	mov rcx, r10
 	call SDL_FreeSurface
 ERROR:	
-	add rsp, 56
+	add rsp, 40
 	ret
 LoadSurface endp
 
