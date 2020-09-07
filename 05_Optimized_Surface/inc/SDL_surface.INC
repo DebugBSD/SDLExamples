@@ -20,8 +20,7 @@ SDL_MUSTLOCK macro S
 ;	exitm <( ( ( S ) -> flags  and  SDL_RLEACCEL ) != 0 ) >
 	endm
 	
-SDL_Surface STRUC
-	spare0		DWORD ?
+SDL_Surface STRUC 8 ; Alignment to 8 bytes.
 	flags 		DWORD ?
 	format 		QWORD ?
 	x 			DWORD ?
