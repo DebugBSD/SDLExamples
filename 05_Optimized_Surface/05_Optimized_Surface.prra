@@ -3,7 +3,7 @@ Version=3000
 [Project]
 Assembler=Masm64
 Group=2,-1,0,1,03_Event_Driven_Programming,-2,-1,1,Assembly,-3,-1,1,Include,-4,-1,1,Misc,-5,-1,1,Resource
-F1=-2,2,1,104,104,1383,432,106,05_Optimized_Surface.asm
+F1=-2,2,1,104,104,1383,432,38,05_Optimized_Surface.asm
 F15=-3,0,1,156,156,1384,432,0,inc\SDL_video.INC
 C15=0
 B15=
@@ -64,7 +64,7 @@ Path=C:\RadASM
 Open=0,1,13
 Api=
 C1=0
-B1=
+B1=38
 M1=
 SDL_timer.INC
 SDL_video.INC

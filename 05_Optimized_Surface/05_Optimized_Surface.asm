@@ -112,12 +112,12 @@ Init PROC
 	jb EXIT
 	
 	; We create the Window
-	mov	arg5, SDL_WINDOW_SHOWN					; 6xt argument - (4)
-	mov	arg4, SCREEN_HEIGHT						; 5th argument - (480) 000001e0H
-	mov	r9, SCREEN_WIDTH						; 4th argument - (640) 00000280H
-	mov	r8, SDL_WINDOWPOS_UNDEFINED				; 3rd argument - 1fff0000H
-	mov	rdx, r8									; 2nd argument - 1fff0000H
-	lea	rcx, OFFSET WINDOW_TITLE				; 1st argument - Window title
+	mov	arg5, 	SDL_WINDOW_SHOWN					; 6xt argument - (4)
+	mov	arg4, 	SCREEN_HEIGHT						; 5th argument - (480) 000001e0H
+	mov	r9, 	SCREEN_WIDTH						; 4th argument - (640) 00000280H
+	mov	r8, 	SDL_WINDOWPOS_UNDEFINED				; 3rd argument - 1fff0000H
+	mov	rdx, 	r8									; 2nd argument - 1fff0000H
+	lea	rcx, 	OFFSET WINDOW_TITLE					; 1st argument - Window title
 	call SDL_CreateWindow
 	cmp rax, 0
 	je ERROR
