@@ -45,11 +45,11 @@ SDL_FRect	ends
 ;;{
 ;return proto  :ptr ptr -> :ptr -> :ptr -> :ptr ->
 ;;}
-externdef SDL_HasIntersection:proto
-externdef SDL_IntersectRect:proto
-externdef SDL_UnionRect:proto
-externdef SDL_EnclosePoints:proto
-externdef SDL_IntersectRectAndLine:proto
+SDL_HasIntersection proto  :ptr SDL_Rect, :ptr SDL_Rect
+SDL_IntersectRect proto  :ptr SDL_Rect, :ptr SDL_Rect, :ptr SDL_Rect
+SDL_UnionRect proto  :ptr SDL_Rect, :ptr SDL_Rect, :ptr SDL_Rect
+SDL_EnclosePoints proto  :ptr SDL_Point, :DWORD, :ptr SDL_Rect, :ptr SDL_Rect
+SDL_IntersectRectAndLine proto  :ptr SDL_Rect, :ptr DWORD, :ptr DWORD, :ptr DWORD, :ptr DWORD
 
 endif 
 
