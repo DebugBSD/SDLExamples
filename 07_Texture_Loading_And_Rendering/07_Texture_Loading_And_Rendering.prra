@@ -1,0 +1,10 @@
+[Version]
+Version=3007
+[Project]
+Assembler=uasm64
+Source=main.asm
+Include=main.inc
+[Make]
+Make=1
+Delete=0
+IncBuild=0
