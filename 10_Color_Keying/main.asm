@@ -3,15 +3,18 @@
 ; Link: link /nologo /debug /subsystem:console /entry:main testUasm.obj user32.lib kernel32.lib 
 OPTION WIN64:8
 
-; Include files
-include main.inc
-include SDL.inc
-include SDL_image.inc
 
 ; Include libraries
 includelib SDL2.lib
 includelib SDL2main.lib
 includelib SDL2_image.lib
+
+; Include files
+include main.inc
+include SDL.inc
+include SDL_image.inc
+; include Code files
+include LTexture.asm
 
 Init 		proto 
 Shutdown 	proto
@@ -26,21 +29,17 @@ SCREEN_HEIGHT = 480
 WINDOW_TITLE BYTE "SDL Tutorial",0
 FILE_ATTRS BYTE "rb"
 
-IMAGE_PRESS 	BYTE "Res/viewport.png",0
+IMAGE_BACKGROUND 	BYTE "Res/background.png",0
+IMAGE_FOO		 	BYTE "Res/foo.png",0
 
 .data
 quit			BYTE 0
-fillRect 		SDL_Rect<160,120,320,240> 
-outlineRect 	SDL_Rect<106,80,426,320> 
-
-topLeftViewport 	SDL_Rect <0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT  / 2>
-topRightViewport 	SDL_Rect <SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT  / 2>
-bottomViewport 		SDL_Rect <0, SCREEN_HEIGHT  / 2, SCREEN_WIDTH, SCREEN_HEIGHT  / 2>
+gBackgndTexture	LTexture <>
+gFooTexture		LTexture <>
 
 .data?
 pWindow 			QWORD ?
 eventHandler		SDL_Event <>
-gTexture			QWORD ?
 gRenderer			QWORD ?	
 
 .code
@@ -65,28 +64,18 @@ main proc
 			
 			invoke SDL_PollEvent, addr eventHandler
 		.endw
-				
+		
 		; Clear screen
 		invoke SDL_SetRenderDrawColor, gRenderer, 0FFh, 0FFh, 0FFh, 0FFh
 		invoke SDL_RenderClear, gRenderer
 		
-		; Top left corner viewport
-		invoke SDL_RenderSetViewport, gRenderer, addr topLeftViewport;
+		; Draw Scene
 		
-		; Render texture to screen
-		invoke SDL_RenderCopy,gRenderer, gTexture, 0, 0
+		; First the background
+		invoke renderTexture, gRenderer, addr gBackgndTexture, 0,0
 		
-		; Top right corner viewport
-		invoke SDL_RenderSetViewport, gRenderer, addr topRightViewport;
-		
-		; Render texture to screen
-		invoke SDL_RenderCopy,gRenderer, gTexture, 0, 0
-		
-		; Bottom corner viewport
-		invoke SDL_RenderSetViewport, gRenderer, addr bottomViewport;
-		
-		; Render texture to screen
-		invoke SDL_RenderCopy,gRenderer, gTexture, 0, 0
+		; Then the Foo' texture
+		invoke renderTexture, gRenderer, addr gFooTexture, 240,190
 		
 		; Update the window
 		invoke SDL_RenderPresent,gRenderer
@@ -144,7 +133,8 @@ Init endp
 
 Shutdown proc
 	
-	invoke SDL_DestroyTexture, gTexture
+	invoke freeTexture, addr gBackgndTexture
+	invoke freeTexture, addr gFooTexture
 	
 	invoke SDL_DestroyRenderer, gRenderer 
 	invoke SDL_DestroyWindow, pWindow
@@ -159,12 +149,18 @@ LoadMedia PROC
 	LOCAL success:BYTE
 	mov success, 1
 		
-	invoke LoadTexture, addr IMAGE_PRESS
+	invoke loadTextureFromFile, gRenderer, addr gBackgndTexture, addr IMAGE_BACKGROUND
 	.if rax==0
 		mov success, 0
 		jmp EXIT
 	.endif	
-	mov gTexture, rax
+	
+	invoke loadTextureFromFile, gRenderer, addr gFooTexture, addr IMAGE_FOO
+	.if rax==0
+		mov success, 0
+		jmp EXIT
+	.endif	
+	
 EXIT:
 	ret
 LoadMedia endp
