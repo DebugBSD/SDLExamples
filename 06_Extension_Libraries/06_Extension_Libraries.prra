@@ -5,6 +5,6 @@ Assembler=uasm64
 Source=main.asm
 Include=main.inc
 [Make]
-Make=0
+Make=1
 Delete=0
 IncBuild=0

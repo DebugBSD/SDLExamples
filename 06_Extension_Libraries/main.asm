@@ -25,7 +25,7 @@ SCREEN_HEIGHT = 480
 WINDOW_TITLE BYTE "SDL Tutorial",0
 FILE_ATTRS BYTE "rb"
 
-IMAGE_PRESS 	BYTE "Res/stretch.bmp",0
+IMAGE_PRESS 	BYTE "Res/loaded.png",0
 
 .data
 quit		BYTE 0
@@ -97,7 +97,14 @@ Init proc
 	.endif
 	mov pWindow, rax
 	
-	invoke SDL_GetWindowSurface, rax
+	invoke IMG_Init, IMG_INIT_PNG
+	and rax, IMG_INIT_PNG
+	.if rax!=IMG_INIT_PNG
+		xor rax, rax
+		jmp EXIT
+	.endif
+	
+	invoke SDL_GetWindowSurface, pWindow
 	mov pScreenSurface, rax
 	
 	mov rax, 1
@@ -131,9 +138,10 @@ LoadSurface PROC pFile:QWORD
 	
 	;SDL_LoadBMP pFile ; This should be possible
 
-	invoke SDL_RWFromFile, pFile, addr FILE_ATTRS	
+	;invoke SDL_RWFromFile, pFile, addr FILE_ATTRS	
 	
-	invoke SDL_LoadBMP_RW, rax, 1
+	;invoke SDL_LoadBMP_RW, rax, 1
+	invoke IMG_Load, pFile
 	.if rax==0
 		jmp ERROR
 	.endif
