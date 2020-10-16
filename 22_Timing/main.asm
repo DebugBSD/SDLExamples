@@ -113,8 +113,6 @@ main proc
 		invoke SDL_RenderClear, gRenderer
 		
 		; Render texture
-		invoke renderTexture, gRenderer, addr gPromptTextTexture, 0, 0, 0, 0, 0, 0
-		
 		mov rax, SCREEN_WIDTH
 		sub eax, gPromptTextTexture.m_Width
 		shr rax, 1
