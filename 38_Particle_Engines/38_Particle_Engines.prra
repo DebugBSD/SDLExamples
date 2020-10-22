@@ -1,0 +1,10 @@
+[Version]
+Version=3007
+[Project]
+Assembler=uasm64
+Source=main.asm,LTexture.asm,LButton.asm,LTimer.asm,Dot.asm,LWindow.asm,Particle.asm
+Include=main.inc,LTexture.inc,LButton.inc,LTimer.inc,Dot.inc,LWindow.inc,Particle.inc
+[Make]
+Make=1
+Delete=0
+IncBuild=0
